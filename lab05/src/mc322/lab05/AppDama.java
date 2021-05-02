@@ -1,45 +1,41 @@
 package mc322.lab05;
 
 public class AppDama {
-  char[][]tab;
-  boolean state;
+  static Tabuleiro t = new Tabuleiro();
 
-  public AppDama (){
-    tab = new char [8][8];
-  }
+  public static void executaJogo(String diretorio) {
+    t.criaTabuleiro(true);
 
-  public static void criaTabuleiro (AppDama d, boolean state) {
-    peaoPreto p = new peaoPreto();
-    peaoBranco b = new peaoBranco();
+    System.out.print("Tabuleiro inicial:");
 
-    for(int i=1;i<=7;i++) {
-      for(int j=1;j<=7;j++) {
+    CSVReader csv = new CSVReader();
+    csv.setDataSource(diretorio);
 
-        if(i==4 && j==4) d.tab[i][j]=p.retorno(state);
+    //vetor contendo os passos de execução
+    String commands[] = csv.requestCommands();
+    char[] posInicial = new char[2];
+    char[] posFinal = new char[2];
 
-        else if(i==4|i==5) {
-          d.tab[i][j]=p.retorno(state);
+    int n=commands.length; //contem o número de comandos presentes no .csv
 
-        } else {
-          if(j==3|j==4|j==5) {
+    for(int j=1;j<n;j++) {
+      posInicial[0]=commands[j].charAt(0);
+      posInicial[1]=commands[j].charAt(1);
 
-            d.tab[i][j]=b.retorno(state);
-          } else {
-            d.tab[i][j]=b.retorno(state);
+      posFinal[0]=commands[j].charAt(3);
+      posFinal[1]=commands[j].charAt(4);
 
-          }
-        }
-      }
+      System.out.println("\n");
+      System.out.println("Source:"+posInicial[0]+"" +posInicial[1]);
+      System.out.print("Target:"+posFinal[0]+"" +posFinal[1]);
+
+      t.alteraPos(posInicial,posFinal,t);
+      t.mostraTabuleiro();
     }
   }
 
-  public static void executaJogo(String diretorio) {
-    System.out.println("executa jogo");
-  }
-
-  public static void main(String[] args) {
-    System.out.println("main");
-    AppDama app = new AppDama();
-    app.executaJogo("dir");
+  public static void main (String args []) {
+    String diretorio = "src/db/arq001.csv";
+    AppDama.executaJogo(diretorio);
   }
 }

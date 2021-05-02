@@ -1,9 +1,7 @@
-package lab05;
+package mc322.lab05;
 
-public class peca {
+public class Peca {
 	public char retorno (char a) {
-		
 		return a;
 	}
-
 }
