@@ -1,136 +1,167 @@
 package mc322.lab05;
 
 public class Tabuleiro {
-  private static final int LIN = 10;
-  private static final int COL = 10;
-  char[][] tab;
-  boolean state;
-  Peca p = new Peca();
+  static final int NUM_PECAS = 24;
+  static final int LIN = 9;
+  static final int COL = 9;
+  static final char[] colunas = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', '\n' };
+  static final char[] linhas = { '8', '7', '6', '5', '4', '3', '2', '1', '\n' };
+  static final String inicio = "-p-p-p-p\np-p-p-p-\n-p-p-p-p\n--------\n--------\nb-b-b-b-\n-b-b-b-b\nb-b-b-b-\n";
+  char[][] casas = new char[LIN][COL];
+  Peca[] pecas = new Peca[NUM_PECAS];
 
-  public Tabuleiro (){
-    tab = new char[LIN][COL];
-  }
-
-  public void criaTabuleiro (boolean state) {
-    state = true;
-
-    for(int i= 1; i <= 9; i++) {
-      for(int j = 1; j <= 8; j++) {
-        if(i == 4 | i == 5) {
-          tab[i][j] = '-';
-        } else {
-          if(state) {
-            if((i == 8| i == 6) && (j % 2 != 0)) {
-              tab[i][j] = p.retorno('p');
-            } else if(i == 2 && j % 2 != 0) {
-              tab[i][j] = p.retorno('b');
-            } else tab[i][j] = '-';
-          }
-          else if(!state) {
-            if((i == 1 | i == 3) && (j % 2 == 0)) {
-              tab[i][j] = p.retorno('b');
-            } else if(i == 7 && j % 2 == 0) {
-              tab[i][j] = p.retorno('p');
-            } else tab[i][j] = '-';
-          }
+  public Tabuleiro() {
+    for(int i = 0; i < LIN; i++) {
+      for(int j = 0; j < COL; j++) {
+        if(i*COL+j < 72 && inicio.charAt(i*COL+j) != '\n') {
+          casas[i][j] = inicio.charAt(i*COL+j);
         }
-        state=!state;
       }
-      System.out.println();
     }
   }
-  public void mostraTabuleiro () {
+
+  public String imprime() {
+    char ch;
+    int indice;
+    String jogada = new String();
+
+    for(int i = 0; i < LIN - 1; i++) {
+      // Imprime numeros das linhas do tabuleiro
+      System.out.print(linhas[i]);
+      // Imprime tabuleiro
+      for(int j = 0; j < COL - 1; j++) {
+        jogada = jogada.concat("" + casas[i][j]);
+        System.out.print(" " + casas[i][j]);
+      }
+      jogada = jogada.concat("" + '\n');
+      System.out.println();
+    }
+    System.out.print(" ");
+    // Imprime numero das colunas do tabuleiro
+    for(int i = 0; i < COL; i++) {
+      System.out.print(" " + colunas[i]);
+    }
     System.out.println();
-    char a = 'a';
-    for(int i = 8; i >= 0; i--) {
-      if(i != 0) System.out.print(""+i);
-      for(int j = 1; j <= 9; j++) {
-        if(i == 0 && j > 1) {
-          System.out.print(a + " ");
-          a++;
-        } else {
-          System.out.print(" ");
-          System.out.print(tab[i][j]);
+
+    return jogada;
+  }
+
+  public boolean ehPermitidoPeca(char numero , char letra) {
+    // Posicao inicial sem peÃ§a
+    if(numero == '4' || numero == '5') {
+      return false;
+      // Posicoes proibidas em colocar peÃ§as no tabuleiro
+    } else if (numero == '8' && (letra == 'a' || letra == 'c' || letra == 'e' || letra == 'g')) {
+      return false;
+    } else if (numero == '7' && (letra == 'b' || letra == 'd' || letra == 'f' || letra == 'h')) {
+      return false;
+    } else if (numero == '6' && (letra == 'a' || letra == 'c' || letra == 'e' || letra == 'g')) {
+      return false;
+    } else if (numero == '3' && (letra == 'b' || letra == 'd' || letra == 'f' || letra == 'h')) {
+      return false;
+    } else if (numero == '2' && (letra == 'a' || letra == 'c' || letra == 'e' || letra == 'g')) {
+      return false;
+    } else if (numero == '1' && (letra == 'b' || letra == 'd' || letra == 'f' || letra == 'h')) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public void adicionaPecas() {
+    String posicao;
+    int indice = 0;
+
+    for(int i = 0; i < LIN - 1; i++) {
+      for(int j = 0; j < COL - 1; j++) {
+        if(ehPermitidoPeca(linhas[i], colunas[j]) && indice < 24) {
+          posicao = "" + colunas[j] + linhas[i];
+          if(indice < 12) {
+            pecas[indice++] = new Peca(posicao, 'p');
+          } else {
+            pecas[indice++] = new Peca(posicao, 'b');
+          }
         }
       }
-      System.out.println();
     }
   }
 
-  public int traduzPos (char c) {
-    //traduz as instruções em indices do vetor do tabuleiro
-    int var=0;
-    if(c=='a' | c=='1') var=1;
-    else if(c=='a' | c=='1') var=1;
-    else if(c=='b' | c=='2') var=2;
-    else if(c=='c' | c=='3') var=3;
-    else if(c=='d' | c=='4') var=4;
-    else if(c=='e' | c=='5') var=5;
-    else if(c=='f' | c=='6') var=6;
-    else if(c=='g' | c=='7') var=7;
-    else if(c=='h' | c=='8') var=8;
-
-    return var;
+  public void imprimeJogada(String movimento) {
+    System.out.println("Source: " + movimento.charAt(0) + movimento.charAt(1));
+    System.out.println("Target: " + movimento.charAt(3) + movimento.charAt(4));
   }
 
-  public boolean validaPos (int i_origem, int j_origem, int i_destino, int j_destino) {
-    boolean state_1=false,state_2=false,state_pos=false;
-    int cont_1, a;
-
-    cont_1 = i_destino - i_origem;
-    if(cont_1 < 0) {
-      cont_1 = cont_1 * (-1);
-    }
-
-    for(a=1; a<=cont_1;a++) {
-      if(i_destino == i_origem + a | i_destino == i_origem - a) {
-        state_1 = true;
-        break;
+  public Peca buscaPeca(String posicao) {
+    for(int i = 0; i < NUM_PECAS; i++) {
+      if(pecas[i].posicao.compareTo(posicao) == 0) {
+        return pecas[i];
       }
     }
-    if(j_destino == j_origem + a | j_destino == j_origem - a) {
-      state_2 = true;
-    }
-    if(state_1 && state_2 && tab[i_destino][j_destino] == '-') {
-      state_pos = true;
-    } else
-      state_pos = false;
-
-    return state_pos;
+    return null;
   }
 
-  public void alteraPos(char[] A, char [] B, Tabuleiro t) {
+  public void movimentaPeca(String movimento) {
+    Peca pecaAtacante = null;
+    Peca pecaAlvo = null;
+    String posicaoInicial = new String("" + movimento.charAt(0) + movimento.charAt(1));
+    String posicaoFinal = new String("" + movimento.charAt(3) + movimento.charAt(4));
+    String posicaoDoAlvo = new String();
+    int linhaInicial = obtemIndiceLinha(posicaoInicial);
+    int linhaFinal = obtemIndiceLinha(posicaoFinal);
 
-    int i_1, j_1,i_2, j_2, posInter_i, posInter_j;
-
-    //posicao inicial
-    i_1 = traduzPos(A[1]);
-    j_1 = traduzPos(A[0]);
-
-    //posicao final
-    i_2 = traduzPos(B[1]);
-    j_2 = traduzPos(B[0]);
-    if(i_2 > i_1) posInter_i = 1;
-    else posInter_i = -1;
-
-    if(j_2 > j_1) posInter_j = 1;
-    else posInter_j = -1;
-
-    if(validaPos(i_1, j_1, i_2, j_2)) {
-      //verifica distância até a posFinal e se há uma peça entre elas:
-      int dist = i_1 -i_2;
-      if(dist < 0) dist = dist * (-1);
-      System.out.println("\ndist:" + dist + "\nposIntermed:" + posInter_i);
-      if(dist == 1) {
-        System.out.print("\nEntrei aqui");
-        tab[i_2][j_2] = tab[i_1][j_1];
-        tab[i_1][j_1] = '-';
-      } else if (dist==2 && tab[i_1 + posInter_i][j_1 + posInter_j] != '-') {
-        System.out.print("\nEntrei aqui2");
-        tab[i_2][j_2] = tab[i_1][j_1];
-        tab[i_1 + posInter_i][j_1 + posInter_j] = '-';
-        tab[i_1][j_1] = '-';
+    pecaAtacante = buscaPeca(posicaoInicial);
+    if(pecaAtacante != null) {
+      if(linhaFinal - linhaInicial == 1 || linhaFinal - linhaInicial == -1) {
+        pecaAtacante.saltaPara(posicaoFinal);
+        atualizaCasas(posicaoInicial, posicaoFinal, pecaAtacante.cor);
+      } else if(linhaFinal - linhaInicial > 1 || linhaFinal - linhaInicial < -1) {
+        posicaoDoAlvo = pecaAtacante.obtemPosicaoDoAlvo(posicaoFinal);
+        pecaAlvo = buscaPeca(posicaoDoAlvo);
+        if(pecaAlvo != null) {
+          pecaAtacante.saltaPara(posicaoFinal);
+          capturaPeca(pecaAlvo, posicaoDoAlvo);
+          atualizaCasas(posicaoInicial, posicaoFinal, pecaAtacante.cor);
+        }
+      } else {
+        System.out.println("Jogada proibida para peÃ§a alvo.");
       }
+    } else {
+      System.out.println("Jogada proibida para peÃ§a atacante.");
     }
+  }
+
+  public void capturaPeca(Peca alvo, String posicaoDoAlvo) {
+    int lin = obtemIndiceLinha(posicaoDoAlvo);
+    int col = obtemIndiceColuna(posicaoDoAlvo);
+    casas[lin][col] = '-';
+    alvo.remove();
+  }
+
+  public void atualizaCasas(String posicaoInicial, String posicaoFinal, char cor) {
+    int lin;
+    int col;
+
+    lin = obtemIndiceLinha(posicaoInicial);
+    col = obtemIndiceColuna(posicaoInicial);
+    casas[lin][col] = '-';
+
+    lin = obtemIndiceLinha(posicaoFinal);
+    col = obtemIndiceColuna(posicaoFinal);
+    casas[lin][col] = cor;
+  }
+
+  public int obtemIndiceLinha(String posicao) {
+    char ch = posicao.charAt(1);
+    int num = Integer.parseInt(String.valueOf(ch));
+    int lin = 8 - num;
+
+    return lin;
+  }
+
+  public int obtemIndiceColuna(String posicao) {
+    char ch = posicao.charAt(0);
+    int col = (int)ch - 97;
+
+    return col;
   }
 }

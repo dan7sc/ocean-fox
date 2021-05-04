@@ -1,41 +1,40 @@
 package mc322.lab05;
 
 public class AppDama {
-  static Tabuleiro t = new Tabuleiro();
 
-  public static void executaJogo(String diretorio) {
-    t.criaTabuleiro(true);
-
-    System.out.print("Tabuleiro inicial:");
-
+  public static String[] executaJogo(String caminhoArquivoCSV) {
+    final int NUM_JOGADAS;
     CSVReader csv = new CSVReader();
-    csv.setDataSource(diretorio);
+    Tabuleiro tabuleiro = new Tabuleiro();
+    String[] estadosDoJogo;
+    String[] commands;
 
-    //vetor contendo os passos de execução
-    String commands[] = csv.requestCommands();
-    char[] posInicial = new char[2];
-    char[] posFinal = new char[2];
+    csv.setDataSource(caminhoArquivoCSV);
 
-    int n=commands.length; //contem o número de comandos presentes no .csv
+    tabuleiro.adicionaPecas();
 
-    for(int j=1;j<n;j++) {
-      posInicial[0]=commands[j].charAt(0);
-      posInicial[1]=commands[j].charAt(1);
+    commands = csv.requestCommands();
+    NUM_JOGADAS = commands.length;
+    estadosDoJogo = new String[NUM_JOGADAS+1];
 
-      posFinal[0]=commands[j].charAt(3);
-      posFinal[1]=commands[j].charAt(4);
+    System.out.println("Tabuleiro inicial");
+    estadosDoJogo[0] = tabuleiro.imprime();
 
-      System.out.println("\n");
-      System.out.println("Source:"+posInicial[0]+"" +posInicial[1]);
-      System.out.print("Target:"+posFinal[0]+"" +posFinal[1]);
-
-      t.alteraPos(posInicial,posFinal,t);
-      t.mostraTabuleiro();
+    for(int i = 0; i < commands.length; i++) {
+      tabuleiro.movimentaPeca(commands[i]);
+      tabuleiro.imprimeJogada(commands[i]);
+      estadosDoJogo[i+1] = tabuleiro.imprime();
     }
+
+    return estadosDoJogo;
   }
 
-  public static void main (String args []) {
-    String diretorio = "src/db/arq001.csv";
-    AppDama.executaJogo(diretorio);
+  public static void main(String[] args) {
+    String csvFile = "src/db/arq003.csv";
+    String[] jogadas = AppDama.executaJogo(csvFile);
+
+    // for(int i = 0; i < jogadas.length; i++) {
+    //     System.out.println(jogadas[i]);
+    // }
   }
 }
