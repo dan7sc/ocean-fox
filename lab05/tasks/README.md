@@ -23,7 +23,7 @@
 - [&check;] Criar método imprimeJogada
 - [&check;] Criar método buscaPeca
 - [&check;] Criar método obtemPosicaoDoAlvo
-- [D] Criar método movimentaPeca
+- [&check;] Criar método movimentaPeca
 - [&check;] Criar método capturaPeca
 - [&check;] Criar método atualizaCasas
 - [&check;]
@@ -53,5 +53,4 @@
 - [&check;]
 
 ## Refatoração
-- [D] método movimentaPeca
 - [&check;]
