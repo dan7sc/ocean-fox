@@ -21,7 +21,7 @@ public class AppDama {
     estadosDoJogo[0] = tabuleiro.imprime();
 
     for(int i = 0; i < commands.length; i++) {
-      tabuleiro.movimentaPeca(commands[i]);
+      tabuleiro.movePeca(commands[i]);
       tabuleiro.imprimeJogada(commands[i]);
       estadosDoJogo[i+1] = tabuleiro.imprime();
     }

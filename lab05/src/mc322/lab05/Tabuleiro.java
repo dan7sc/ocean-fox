@@ -21,8 +21,6 @@ public class Tabuleiro {
   }
 
   public String imprime() {
-    char ch;
-    int indice;
     String jogada = new String();
 
     for(int i = 0; i < LIN - 1; i++) {
@@ -46,41 +44,24 @@ public class Tabuleiro {
     return jogada;
   }
 
-  public boolean ehPermitidoPeca(char numero , char letra) {
-    // Posicao inicial sem peça
-    if(numero == '4' || numero == '5') {
+  public boolean ehPermitidoPeca(int lin, int col) {
+    if(casas[lin][col] == '-') {
       return false;
-      // Posicoes proibidas em colocar peças no tabuleiro
-    } else if (numero == '8' && (letra == 'a' || letra == 'c' || letra == 'e' || letra == 'g')) {
-      return false;
-    } else if (numero == '7' && (letra == 'b' || letra == 'd' || letra == 'f' || letra == 'h')) {
-      return false;
-    } else if (numero == '6' && (letra == 'a' || letra == 'c' || letra == 'e' || letra == 'g')) {
-      return false;
-    } else if (numero == '3' && (letra == 'b' || letra == 'd' || letra == 'f' || letra == 'h')) {
-      return false;
-    } else if (numero == '2' && (letra == 'a' || letra == 'c' || letra == 'e' || letra == 'g')) {
-      return false;
-    } else if (numero == '1' && (letra == 'b' || letra == 'd' || letra == 'f' || letra == 'h')) {
-      return false;
-    } else {
-      return true;
     }
+    return true;
   }
 
   public void adicionaPecas() {
     String posicao;
+    char cor;
     int indice = 0;
 
     for(int i = 0; i < LIN - 1; i++) {
       for(int j = 0; j < COL - 1; j++) {
-        if(ehPermitidoPeca(linhas[i], colunas[j]) && indice < 24) {
+        if(ehPermitidoPeca(i, j)) {
           posicao = "" + colunas[j] + linhas[i];
-          if(indice < 12) {
-            pecas[indice++] = new Peao(posicao, 'p');
-          } else {
-            pecas[indice++] = new Peao(posicao, 'b');
-          }
+          cor = casas[i][j];
+          pecas[indice++] = new Peao(posicao, cor);
         }
       }
     }
@@ -121,39 +102,39 @@ public class Tabuleiro {
     return new Posicao("" + letra + numero);
   }
 
-  public void movimentaPeca(String movimento) {
+  public boolean movePeca(String movimento) {
     Peca pecaAtacante;
-    Peca pecaAlvo;
     Posicao posicaoInicial = new Posicao("" + movimento.charAt(0) + movimento.charAt(1));
     Posicao posicaoFinal = new Posicao("" + movimento.charAt(3) + movimento.charAt(4));
-    Posicao posicaoDoAlvo;
-    int finalMenosInicial;
+    int numCasas; // numero de casas que a peça avançará
+    boolean ehCapturada;
 
     pecaAtacante = buscaPeca(posicaoInicial);
-    finalMenosInicial = posicaoFinal.indiceNumero() - posicaoInicial.indiceNumero();
-    if(pecaAtacante != null) {
-      if(finalMenosInicial == 1 || finalMenosInicial == -1) {
-        pecaAtacante.saltaPara(posicaoFinal);
-        atualizaCasas(posicaoInicial, posicaoFinal, pecaAtacante.cor);
-      } else if(finalMenosInicial > 1 || finalMenosInicial < -1) {
-        posicaoDoAlvo = obtemPosicaoDoAlvo(pecaAtacante.posicao, posicaoFinal);
-        pecaAlvo = buscaPeca(posicaoDoAlvo);
-        if(pecaAlvo != null) {
-          pecaAtacante.saltaPara(posicaoFinal);
-          capturaPeca(pecaAlvo, posicaoDoAlvo);
-          atualizaCasas(posicaoInicial, posicaoFinal, pecaAtacante.cor);
-        }
-      } else {
-        System.out.println("Jogada proibida para peça alvo.");
-      }
-    } else {
-      System.out.println("Jogada proibida para peça atacante.");
+    numCasas = Math.abs(posicaoFinal.indiceNumero() - posicaoInicial.indiceNumero());
+    if(pecaAtacante == null) {
+      return false;
     }
+    if(numCasas > 1) {
+      ehCapturada = capturaPeca(pecaAtacante, posicaoFinal);
+      if(!ehCapturada) {
+        return false;
+      }
+    }
+    pecaAtacante.saltaPara(posicaoFinal);
+    atualizaCasas(posicaoInicial, posicaoFinal, pecaAtacante.cor);
+
+    return true;
   }
 
-  public void capturaPeca(Peca alvo, Posicao posicaoDoAlvo) {
+  public boolean capturaPeca(Peca atacante, Posicao posicaoFinal) {
+    Posicao posicaoDoAlvo = obtemPosicaoDoAlvo(atacante.posicao, posicaoFinal);
+    Peca alvo = buscaPeca(posicaoDoAlvo);
+    if(alvo == null) {
+      return false;
+    }
     casas[posicaoDoAlvo.indiceNumero()][posicaoDoAlvo.indiceLetra()] = '-';
     alvo.remove();
+    return true;
   }
 
   public void atualizaCasas(Posicao posicaoInicial, Posicao posicaoFinal, char cor) {
