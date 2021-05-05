@@ -33,8 +33,8 @@ public class AppDama {
     String csvFile = "src/db/arq003.csv";
     String[] jogadas = AppDama.executaJogo(csvFile);
 
-    // for(int i = 0; i < jogadas.length; i++) {
-    //     System.out.println(jogadas[i]);
-    // }
+    for(int i = 0; i < jogadas.length; i++) {
+        System.out.println(jogadas[i]);
+    }
   }
 }

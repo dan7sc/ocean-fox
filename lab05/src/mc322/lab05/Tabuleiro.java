@@ -8,7 +8,7 @@ public class Tabuleiro {
   static final char[] linhas = { '8', '7', '6', '5', '4', '3', '2', '1', '\n' };
   static final String inicio = "-p-p-p-p\np-p-p-p-\n-p-p-p-p\n--------\n--------\nb-b-b-b-\n-b-b-b-b\nb-b-b-b-\n";
   char[][] casas = new char[LIN][COL];
-  Peca[] pecas = new Peca[NUM_PECAS];
+  Peca[] pecas = new Peao[NUM_PECAS];
 
   public Tabuleiro() {
     for(int i = 0; i < LIN; i++) {
@@ -77,9 +77,9 @@ public class Tabuleiro {
         if(ehPermitidoPeca(linhas[i], colunas[j]) && indice < 24) {
           posicao = "" + colunas[j] + linhas[i];
           if(indice < 12) {
-            pecas[indice++] = new Peca(posicao, 'p');
+            pecas[indice++] = new Peao(posicao, 'p');
           } else {
-            pecas[indice++] = new Peca(posicao, 'b');
+            pecas[indice++] = new Peao(posicao, 'b');
           }
         }
       }
@@ -91,31 +91,52 @@ public class Tabuleiro {
     System.out.println("Target: " + movimento.charAt(3) + movimento.charAt(4));
   }
 
-  public Peca buscaPeca(String posicao) {
+  public Peca buscaPeca(Posicao posicao) {
     for(int i = 0; i < NUM_PECAS; i++) {
-      if(pecas[i].posicao.compareTo(posicao) == 0) {
+      if(pecas[i].posicao.obtem().compareTo(posicao.obtem()) == 0) {
         return pecas[i];
       }
     }
     return null;
   }
 
+  public Posicao obtemPosicaoDoAlvo(Posicao atacante, Posicao alvo) {
+    char letra = atacante.letra();
+    char numero = atacante.numero();
+    // Alvo está posicionado à direita do atacante
+    if(alvo.letra() - atacante.letra() > 0) {
+      letra++;
+      // Alvo está posicionado à esquerda do atacante
+    } else if(alvo.letra() - atacante.letra() < 0) {
+      letra--;
+    }
+    // Alvo está posicionado acima do atacante
+    if(alvo.numero() - atacante.numero() > 0) {
+      numero++;
+      // Alvo está posicionado abaixo do atacante
+    } else if(alvo.numero() - atacante.numero() < 0) {
+      numero--;
+    }
+
+    return new Posicao("" + letra + numero);
+  }
+
   public void movimentaPeca(String movimento) {
-    Peca pecaAtacante = null;
-    Peca pecaAlvo = null;
-    String posicaoInicial = new String("" + movimento.charAt(0) + movimento.charAt(1));
-    String posicaoFinal = new String("" + movimento.charAt(3) + movimento.charAt(4));
-    String posicaoDoAlvo = new String();
-    int linhaInicial = obtemIndiceLinha(posicaoInicial);
-    int linhaFinal = obtemIndiceLinha(posicaoFinal);
+    Peca pecaAtacante;
+    Peca pecaAlvo;
+    Posicao posicaoInicial = new Posicao("" + movimento.charAt(0) + movimento.charAt(1));
+    Posicao posicaoFinal = new Posicao("" + movimento.charAt(3) + movimento.charAt(4));
+    Posicao posicaoDoAlvo;
+    int finalMenosInicial;
 
     pecaAtacante = buscaPeca(posicaoInicial);
+    finalMenosInicial = posicaoFinal.indiceNumero() - posicaoInicial.indiceNumero();
     if(pecaAtacante != null) {
-      if(linhaFinal - linhaInicial == 1 || linhaFinal - linhaInicial == -1) {
+      if(finalMenosInicial == 1 || finalMenosInicial == -1) {
         pecaAtacante.saltaPara(posicaoFinal);
         atualizaCasas(posicaoInicial, posicaoFinal, pecaAtacante.cor);
-      } else if(linhaFinal - linhaInicial > 1 || linhaFinal - linhaInicial < -1) {
-        posicaoDoAlvo = pecaAtacante.obtemPosicaoDoAlvo(posicaoFinal);
+      } else if(finalMenosInicial > 1 || finalMenosInicial < -1) {
+        posicaoDoAlvo = obtemPosicaoDoAlvo(pecaAtacante.posicao, posicaoFinal);
         pecaAlvo = buscaPeca(posicaoDoAlvo);
         if(pecaAlvo != null) {
           pecaAtacante.saltaPara(posicaoFinal);
@@ -130,38 +151,13 @@ public class Tabuleiro {
     }
   }
 
-  public void capturaPeca(Peca alvo, String posicaoDoAlvo) {
-    int lin = obtemIndiceLinha(posicaoDoAlvo);
-    int col = obtemIndiceColuna(posicaoDoAlvo);
-    casas[lin][col] = '-';
+  public void capturaPeca(Peca alvo, Posicao posicaoDoAlvo) {
+    casas[posicaoDoAlvo.indiceNumero()][posicaoDoAlvo.indiceLetra()] = '-';
     alvo.remove();
   }
 
-  public void atualizaCasas(String posicaoInicial, String posicaoFinal, char cor) {
-    int lin;
-    int col;
-
-    lin = obtemIndiceLinha(posicaoInicial);
-    col = obtemIndiceColuna(posicaoInicial);
-    casas[lin][col] = '-';
-
-    lin = obtemIndiceLinha(posicaoFinal);
-    col = obtemIndiceColuna(posicaoFinal);
-    casas[lin][col] = cor;
-  }
-
-  public int obtemIndiceLinha(String posicao) {
-    char ch = posicao.charAt(1);
-    int num = Integer.parseInt(String.valueOf(ch));
-    int lin = 8 - num;
-
-    return lin;
-  }
-
-  public int obtemIndiceColuna(String posicao) {
-    char ch = posicao.charAt(0);
-    int col = (int)ch - 97;
-
-    return col;
+  public void atualizaCasas(Posicao posicaoInicial, Posicao posicaoFinal, char cor) {
+    casas[posicaoInicial.indiceNumero()][posicaoInicial.indiceLetra()] = '-';
+    casas[posicaoFinal.indiceNumero()][posicaoFinal.indiceLetra()] = cor;
   }
 }
