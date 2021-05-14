@@ -5,7 +5,7 @@ public class AppMundoWumpus {
     String[][] commands;
     CSVHandling csv = new CSVHandling();
 
-    csv.setDataSource("src/mc322/lab06/arq001.csv");
+    csv.setDataSource("src/db/arq001.csv");
     commands = csv.requestCommands();
 
     for(int i = 0; i < commands.length; i++) {
