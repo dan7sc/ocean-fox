@@ -4,17 +4,20 @@ public class Sala {
   Componente[] componentes;
   int lin;
   int col;
-  int indice = 0;
-  char visitada = '#';
+  int indice;
+  boolean visitada;
 
   public Sala(int lin, int col, int qtde) {
     this.lin = lin;
     this.col = col;
+    visitada = false;
+    indice = 0;
     componentes = new Componente[qtde];
   }
 
   public void colocaComponente(Componente c, int lin, int col) {
     c.move(lin, col);
+    visitada = true;
     componentes[indice] = c;
     indice += 1;
   }
@@ -29,8 +32,9 @@ public class Sala {
   }
 
   public char obtemElemento() {
-    if(componentes[0] == null) {
-      return visitada;
+    char ch = '#';
+    if(componentes[0] == null && visitada) {
+      return ch;
     }
     return componentes[0].ch;
   }

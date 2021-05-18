@@ -21,7 +21,9 @@ public class Caverna {
       System.out.print(numeracao[i]);
       // Imprime caverna
       for(int j = 0; j < NCOL; j++) {
-        if (salas[i][j].componentes[0] == null) {
+        if (salas[i][j].componentes[0] == null && salas[i][j].visitada) {
+          System.out.print(" " + '#');
+        } else if (salas[i][j].componentes[0] == null && !salas[i][j].visitada) {
           System.out.print(" " + '-');
         } else {
           System.out.print(" " + salas[i][j].componentes[0].ch);

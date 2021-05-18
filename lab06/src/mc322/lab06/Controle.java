@@ -12,31 +12,41 @@ public class Controle {
   public String leEntrada() {
     String command = keyboard.nextLine();
     System.out.println("command: " + command);
-    // this.move(command, c);
+    if(command.isEmpty()) {
+      return new String("\n");
+    }
     return command;
   }
 
   public void move(String movimento, Componente c, Caverna cv) {
     switch(movimento.charAt(0)) {
     case 'w':
-      System.out.println("para cima");
-      cv.removeComponenteDaSala(c, c.lin, c.col);
-      cv.colocaComponenteNaSala(c, c.lin - 1, c.col);
+      if(c.lin - 1 > 0) {
+        System.out.println("para cima");
+        cv.removeComponenteDaSala(c, c.lin, c.col);
+        cv.colocaComponenteNaSala(c, c.lin - 1, c.col);
+      }
       break;
     case 's':
-      System.out.println("para baixo");
-      cv.removeComponenteDaSala(c, c.lin, c.col);
-      cv.colocaComponenteNaSala(c, c.lin + 1, c.col);
+      if(c.lin < 4) {
+        System.out.println("para baixo");
+        cv.removeComponenteDaSala(c, c.lin, c.col);
+        cv.colocaComponenteNaSala(c, c.lin + 1, c.col);
+      }
       break;
     case 'd':
-      System.out.println("para direita");
-      cv.removeComponenteDaSala(c, c.lin, c.col);
-      cv.colocaComponenteNaSala(c, c.lin, c.col + 1);
+      if(c.col < 4) {
+        System.out.println("para direita");
+        cv.removeComponenteDaSala(c, c.lin, c.col);
+        cv.colocaComponenteNaSala(c, c.lin, c.col + 1);
+      }
       break;
     case 'a':
-      System.out.println("para esquerda");
-      cv.removeComponenteDaSala(c, c.lin, c.col);
-      cv.colocaComponenteNaSala(c, c.lin, c.col - 1);
+      if(c.col - 1 > 0) {
+        System.out.println("para esquerda");
+        cv.removeComponenteDaSala(c, c.lin, c.col);
+        cv.colocaComponenteNaSala(c, c.lin, c.col - 1);
+      }
       break;
     case 'k':
       System.out.println("equipa flecha");
