@@ -1,5 +1,5 @@
 package mc322.lab06;
-
+import java.util.Random;
 import java.util.Scanner;
 
 public class Controle {
@@ -52,7 +52,7 @@ public class Controle {
       System.out.println("equipa flecha");
       break;
     case 'c':
-      System.out.println("captura ouro");
+      if (cv.pegaOuro())System.out.println("captura ouro");
       break;
     case 'q':
       System.out.println("sai do jogo");
