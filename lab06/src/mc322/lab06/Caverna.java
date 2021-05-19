@@ -11,6 +11,9 @@ public class Caverna {
     for(int i = 0; i < salas.length; i++) {
       for (int j = 0; j < salas.length; j++) {
         salas[i][j] = new Sala(i, j, 3);
+        if (salas[i][j].componentes[0] != null) {
+          System.out.println(salas[i][j].componentes[0].tipo);
+        }
       }
     }
   }
@@ -23,10 +26,10 @@ public class Caverna {
       for(int j = 0; j < NCOL; j++) {
         if (salas[i][j].componentes[0] == null && salas[i][j].visitada) {
           System.out.print(" " + '#');
-        } else if (salas[i][j].componentes[0] == null && !salas[i][j].visitada) {
-          System.out.print(" " + '-');
+        } else if (salas[i][j].componentes[0] != null && salas[i][j].visitada) {
+          System.out.print(" " + salas[i][j].componentes[0].tipo);
         } else {
-          System.out.print(" " + salas[i][j].componentes[0].ch);
+          System.out.print(" " + '-');
         }
       }
       System.out.println();

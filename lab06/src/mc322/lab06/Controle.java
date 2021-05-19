@@ -62,4 +62,15 @@ public class Controle {
       break;
     }
   }
+
+  public void joga(Caverna cv) {
+    String key = new String();
+    Componente h = cv.salas[0][0].componentes[0];
+
+    while(!key.equals("q")) {
+      key = leEntrada();
+      move(key, h, cv);
+      cv.imprime();
+    }
+  }
 }

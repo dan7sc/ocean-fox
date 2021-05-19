@@ -36,6 +36,6 @@ public class Sala {
     if(componentes[0] == null && visitada) {
       return ch;
     }
-    return componentes[0].ch;
+    return componentes[0].tipo;
   }
 }
