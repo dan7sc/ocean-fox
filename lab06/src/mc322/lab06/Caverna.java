@@ -8,7 +8,7 @@ public class Caverna {
 
   public Caverna() {
     salas = new Sala[NLIN][NCOL];
-    for(int i = 0; i < NLIN; i++) {
+    for (int i = 0; i < NLIN; i++) {
       for (int j = 0; j < NCOL; j++) {
         salas[i][j] = new Sala(i, j);
       }
@@ -16,11 +16,11 @@ public class Caverna {
   }
 
   public String exibe() {
-    for(int i = 0; i < NLIN; i++) {
+    for (int i = 0; i < NLIN; i++) {
       // Imprime numeros das linhas da caverna
       System.out.print(numeracao[i]);
       // Imprime caverna
-      for(int j = 0; j < NCOL; j++) {
+      for (int j = 0; j < NCOL; j++) {
         if (salas[i][j].componentes[0] == null && salas[i][j].visitada) {
           System.out.print(" " + '#');
         } else if (salas[i][j].componentes[0] != null && salas[i][j].visitada) {
@@ -33,7 +33,7 @@ public class Caverna {
     }
     System.out.print(" ");
     // Imprime numero das colunas da caverna
-    for(int i = 0; i < NCOL; i++) {
+    for (int i = 0; i < NCOL; i++) {
       System.out.print(" " + numeracao[i]);
     }
     System.out.println();
@@ -49,4 +49,4 @@ public class Caverna {
   public void removeDaSala(Componente c) {
     salas[c.lin - 1][c.col - 1].removeComponente(c);
   }
- }
+}

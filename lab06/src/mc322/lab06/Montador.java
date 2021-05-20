@@ -56,6 +56,9 @@ public class Montador {
           componente.colocaNaCaverna(cv);
           componente.cv.colocaNaSala(componente);
           cmp[contador++] = componente;
+          if (componente.tipo == 'B') {
+            ((Buraco)componente).criaBrisa();
+          }
         }
       }
     }
