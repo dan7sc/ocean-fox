@@ -1,32 +1,33 @@
 package mc322.lab06;
 
 public class Sala {
+  static final int N = 4;
   Componente[] componentes;
   int lin;
   int col;
-  int indice;
+  int nc;
   boolean visitada;
 
-  public Sala(int lin, int col, int qtde) {
+  public Sala(int lin, int col) {
     this.lin = lin;
     this.col = col;
     visitada = false;
-    indice = 0;
-    componentes = new Componente[qtde];
+    nc = 0;
+    componentes = new Componente[N];
   }
 
-  public void colocaComponente(Componente c, int lin, int col) {
-    c.move(lin, col);
+  public void colocaComponente(Componente c) {
     visitada = true;
-    componentes[indice] = c;
-    indice += 1;
+    componentes[nc] = c;
+    nc += 1;
   }
 
-  public void removeComponente(Componente c, int lin, int col) {
-    for (int i = 0; i < componentes.length; i++) {
+  public void removeComponente(Componente c) {
+    for (int i = 0; i < N; i++) {
       if(componentes[i] == c) {
+        System.out.println("remove");
         componentes[i] = null;
-        indice -= 1;
+        nc -= 1;
       }
     }
   }

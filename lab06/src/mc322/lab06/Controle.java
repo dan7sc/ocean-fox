@@ -1,12 +1,17 @@
 package mc322.lab06;
-import java.util.Random;
+
 import java.util.Scanner;
 
 public class Controle {
   public Scanner keyboard;
+  public Componente heroi;
 
   public Controle() {
     keyboard = new Scanner(System.in);
+  }
+
+  public void conectaHeroi(Componente heroi) {
+    this.heroi = heroi;
   }
 
   public String leEntrada() {
@@ -18,41 +23,48 @@ public class Controle {
     return command;
   }
 
-  public void move(String movimento, Componente c, Caverna cv) {
+  public void move(String movimento) {
+    System.out.println("mov: " + movimento.charAt(0));
     switch(movimento.charAt(0)) {
     case 'w':
-      if(c.lin - 1 > 0) {
+      if(heroi.lin - 1 > 0) {
         System.out.println("para cima");
-        cv.removeComponenteDaSala(c, c.lin, c.col);
-        cv.colocaComponenteNaSala(c, c.lin - 1, c.col);
+        heroi.cv.removeDaSala(heroi);
+        heroi.move(heroi.lin - 1, heroi.col);
+        heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 's':
-      if(c.lin < 4) {
+      if(heroi.lin < 4) {
         System.out.println("para baixo");
-        cv.removeComponenteDaSala(c, c.lin, c.col);
-        cv.colocaComponenteNaSala(c, c.lin + 1, c.col);
+        heroi.cv.removeDaSala(heroi);
+        heroi.move(heroi.lin + 1, heroi.col);
+        heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 'd':
-      if(c.col < 4) {
+      if(heroi.col < 4) {
         System.out.println("para direita");
-        cv.removeComponenteDaSala(c, c.lin, c.col);
-        cv.colocaComponenteNaSala(c, c.lin, c.col + 1);
+        heroi.cv.removeDaSala(heroi);
+        heroi.move(heroi.lin, heroi.col + 1);
+        heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 'a':
-      if(c.col - 1 > 0) {
+      if(heroi.col - 1 > 0) {
         System.out.println("para esquerda");
-        cv.removeComponenteDaSala(c, c.lin, c.col);
-        cv.colocaComponenteNaSala(c, c.lin, c.col - 1);
+        heroi.cv.removeDaSala(heroi);
+        heroi.move(heroi.lin, heroi.col - 1);
+        heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 'k':
       System.out.println("equipa flecha");
       break;
     case 'c':
-      if (cv.pegaOuro())System.out.println("captura ouro");
+      // if (heroi.cv.pegaOuro()) {
+        System.out.println("captura ouro");
+      // }
       break;
     case 'q':
       System.out.println("sai do jogo");
@@ -63,14 +75,14 @@ public class Controle {
     }
   }
 
-  public void joga(Caverna cv) {
+  public void iniciaJogo() {
     String key = new String();
-    Componente h = cv.salas[0][0].componentes[0];
 
+    heroi.cv.exibe();
     while(!key.equals("q")) {
       key = leEntrada();
-      move(key, h, cv);
-      cv.imprime();
+      move(key);
+      heroi.cv.exibe();
     }
   }
 }

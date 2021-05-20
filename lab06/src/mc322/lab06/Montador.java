@@ -1,46 +1,86 @@
 package mc322.lab06;
 
 public class Montador {
-  String[][] cmd;
+  public Caverna cv;
+  public Componente[] cmp;
+  public static int N;
 
-  public Montador(String[][] cmd) {
-    this.cmd = cmd;
+  public Montador() {
+    cv = new Caverna();
   }
 
-  public void montaCaverna(Caverna cv) {
-    Componente comp;
-    int lin;
-    int col;
-    char tipo;
+  public String[][] leArquivo(String arquivo) {
+    CSVHandling csv = new CSVHandling();
+    csv.setDataSource(arquivo);
+
+    return csv.requestCommands();
+  }
+
+  public int obtemLinha(String[][] cmd, int indice) {
+    return Integer.parseInt(cmd[indice][0].substring(0, 1));
+  }
+
+  public int obtemColuna(String[][] cmd, int indice) {
+    return Integer.parseInt(cmd[indice][0].substring(2, 3));
+  }
+
+  public char obtemTipo(String[][] cmd, int indice) {
+    return cmd[indice][1].charAt(0);
+  }
+
+  public int contaComponentes(String[][] cmd) {
+    int contador = 0;
+
+    for (int i = 0; i < cmd.length; i++) {
+      if (cmd[i] != null && obtemTipo(cmd, i) != '_') {
+        contador++;
+      }
+    }
+
+    return contador;
+  }
+
+  public void iniciaCaverna(String[][] cmd) {
+    Componente componente;
+    int contador = 0;
+
+    N = contaComponentes(cmd);
+    cmp = new Componente[N];
 
     for (int i = 0; i < cmd.length; i++) {
       if (cmd[i] != null) {
-        lin = Integer.parseInt(cmd[i][0].substring(0, 1));
-        col = Integer.parseInt(cmd[i][0].substring(2, 3));
-        tipo = cmd[i][1].charAt(0);
-        comp = criaComponente(lin, col, tipo);
-        if (comp != null) {
-          cv.colocaComponenteNaSala(comp, lin, col);
+        componente = criaComponente(obtemLinha(cmd, i),
+                                    obtemColuna(cmd, i),
+                                    obtemTipo(cmd, i));
+        if (componente != null) {
+          componente.colocaNaCaverna(cv);
+          componente.cv.colocaNaSala(componente);
+          cmp[contador++] = componente;
         }
       }
     }
   }
 
   public Componente criaComponente(int lin, int col, char tipo) {
-    if(tipo == 'P') {
+    if (tipo == 'P') {
       return new Heroi(lin, col);
-    } else if(tipo == 'W') {
+    } else if (tipo == 'W') {
       return new Wumpus(lin, col);
-    } else if(tipo == 'O') {
+    } else if (tipo == 'O') {
       return new Ouro(lin, col);
-    } else if(tipo == 'B') {
+    } else if (tipo == 'B') {
       return new Buraco(lin, col);
-    } else if(tipo == 'f') {
-      return new Fedor(lin, col);
-    } else if(tipo == 'b') {
-      return new Brisa(lin, col);
     } else {
       return null;
     }
+  }
+
+  public Componente obtemHeroi() {
+    for(int i = 0; i < cmp.length; i++) {
+      if(cmp[i].tipo == 'P') {
+        return cmp[i];
+      }
+    }
+    return null;
   }
 }

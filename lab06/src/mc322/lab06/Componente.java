@@ -4,6 +4,7 @@ public class Componente {
   int lin;
   int col;
   char tipo;
+  Caverna cv;
 
   public Componente(int lin, int col, char tipo) {
     this.lin = lin;
@@ -12,4 +13,8 @@ public class Componente {
   }
 
   public void move(int lin, int col) {}
+
+  public void colocaNaCaverna(Caverna cv) {
+    this.cv = cv;
+  }
 }

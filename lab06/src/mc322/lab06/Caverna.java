@@ -1,24 +1,21 @@
 package mc322.lab06;
 
 public class Caverna {
-  static final int NLIN = 4;
-  static final int NCOL = 4;
-  static final char[] numeracao = { '1', '2', '3', '4' };
-  Sala[][] salas;
+  public static final int NLIN = 4;
+  public static final int NCOL = 4;
+  public static final char[] numeracao = { '1', '2', '3', '4' };
+  public Sala[][] salas;
 
   public Caverna() {
     salas = new Sala[NLIN][NCOL];
-    for(int i = 0; i < salas.length; i++) {
-      for (int j = 0; j < salas.length; j++) {
-        salas[i][j] = new Sala(i, j, 3);
-        if (salas[i][j].componentes[0] != null) {
-          System.out.println(salas[i][j].componentes[0].tipo);
-        }
+    for(int i = 0; i < NLIN; i++) {
+      for (int j = 0; j < NCOL; j++) {
+        salas[i][j] = new Sala(i, j);
       }
     }
   }
 
-  public String imprime() {
+  public String exibe() {
     for(int i = 0; i < NLIN; i++) {
       // Imprime numeros das linhas da caverna
       System.out.print(numeracao[i]);
@@ -45,11 +42,11 @@ public class Caverna {
     return "";
   }
 
-  public void colocaComponenteNaSala(Componente c, int lin, int col) {
-    salas[lin-1][col-1].colocaComponente(c, lin, col);
+  public void colocaNaSala(Componente c) {
+    salas[c.lin - 1][c.col - 1].colocaComponente(c);
   }
 
-  public void removeComponenteDaSala(Componente c, int lin, int col) {
-    salas[lin - 1][col - 1].removeComponente(c, lin, col);
+  public void removeDaSala(Componente c) {
+    salas[c.lin - 1][c.col - 1].removeComponente(c);
   }
  }
