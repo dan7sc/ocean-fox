@@ -57,7 +57,10 @@ public class Montador {
           componente.cv.colocaNaSala(componente);
           cmp[contador++] = componente;
           if (componente.tipo == 'B') {
-            ((Buraco)componente).criaBrisa();
+            ((Buraco) componente).criaBrisa();
+          }
+          if (componente.tipo == 'W') {
+            ((Wumpus) componente).geraFedor();
           }
         }
       }
