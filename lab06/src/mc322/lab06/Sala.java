@@ -17,7 +17,9 @@ public class Sala {
   }
 
   public void colocaComponente(Componente c) {
-    visitada = true;
+    if(c.tipo == 'P') {
+      visitada = true;
+    }
     componentes[nc] = c;
     nc += 1;
   }
