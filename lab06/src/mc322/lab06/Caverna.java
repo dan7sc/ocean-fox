@@ -16,16 +16,18 @@ public class Caverna {
   }
 
   public String exibe() {
+    Componente c;
     for (int i = 0; i < NLIN; i++) {
       // Imprime numeros das linhas da caverna
       System.out.print(numeracao[i]);
       // Imprime caverna
       for (int j = 0; j < NCOL; j++) {
         if (salas[i][j].visitada == true) {
-          if (salas[i][j].componentes[0] == null) {
+          c = salas[i][j].obtemComponentePorOrdemDePrioridade();
+          if (c == null) {
             System.out.print(" " + '#');
-          } else if (salas[i][j].componentes[0] != null) {
-            System.out.print(" " + salas[i][j].componentes[0].tipo);
+          } else {
+            System.out.print(" " + c.tipo);
           }
         } else {
           System.out.print(" " + '-');

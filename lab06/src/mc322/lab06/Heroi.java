@@ -2,7 +2,7 @@ package mc322.lab06;
 
 public class Heroi extends Componente {
   public Heroi(int lin, int col) {
-    super(lin, col, 'P');
+    super(lin, col, 'P', 2);
   }
 
   public void move(int lin, int col) {

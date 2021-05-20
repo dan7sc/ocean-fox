@@ -16,7 +16,6 @@ public class Controle {
 
   public String leEntrada() {
     String command = keyboard.nextLine();
-    System.out.println("command: " + command);
     if(command.isEmpty()) {
       return new String("\n");
     }
@@ -24,11 +23,9 @@ public class Controle {
   }
 
   public void move(String movimento) {
-    System.out.println("mov: " + movimento.charAt(0));
     switch(movimento.charAt(0)) {
     case 'w':
       if(heroi.lin - 1 > 0) {
-        System.out.println("para cima");
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin - 1, heroi.col);
         heroi.cv.colocaNaSala(heroi);
@@ -36,7 +33,6 @@ public class Controle {
       break;
     case 's':
       if(heroi.lin < 4) {
-        System.out.println("para baixo");
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin + 1, heroi.col);
         heroi.cv.colocaNaSala(heroi);
@@ -44,7 +40,6 @@ public class Controle {
       break;
     case 'd':
       if(heroi.col < 4) {
-        System.out.println("para direita");
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin, heroi.col + 1);
         heroi.cv.colocaNaSala(heroi);
@@ -52,7 +47,6 @@ public class Controle {
       break;
     case 'a':
       if(heroi.col - 1 > 0) {
-        System.out.println("para esquerda");
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin, heroi.col - 1);
         heroi.cv.colocaNaSala(heroi);

@@ -27,18 +27,30 @@ public class Sala {
   public void removeComponente(Componente c) {
     for (int i = 0; i < N; i++) {
       if(componentes[i] == c) {
-        System.out.println("remove");
         componentes[i] = null;
         nc -= 1;
       }
     }
   }
 
-  public char obtemElemento() {
-    char ch = '#';
-    if(componentes[0] == null && visitada) {
-      return ch;
+  public Componente obtemComponentePorOrdemDePrioridade() {
+    Componente c;
+
+    if(nc == 0) {
+      return null;
     }
-    return componentes[0].tipo;
+
+    if(nc == 1) {
+      c = componentes[0];
+      return c;
+    }
+
+    c = componentes[0];
+    for(int i = 1; i < nc; i++) {
+      if(c.prioridade > componentes[i].prioridade) {
+        c = componentes[i];
+      }
+    }
+    return c;
   }
 }

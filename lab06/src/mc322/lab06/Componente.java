@@ -4,12 +4,14 @@ public class Componente {
   int lin;
   int col;
   char tipo;
+  int prioridade;
   Caverna cv;
 
-  public Componente(int lin, int col, char tipo) {
+  public Componente(int lin, int col, char tipo, int prioridade) {
     this.lin = lin;
     this.col = col;
     this.tipo = tipo;
+    this.prioridade = prioridade;
   }
 
   public void move(int lin, int col) {}
