@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Controle {
   public Scanner keyboard;
   public Componente heroi;
+  public String player = "";
+  public int score = 0;
 
   public Controle() {
     keyboard = new Scanner(System.in);
@@ -14,7 +16,12 @@ public class Controle {
     this.heroi = heroi;
   }
 
-  public String leEntrada() {
+  public void leNomeJogador() {
+    System.out.println("Digite o nome do jogador: ");
+    player = keyboard.nextLine();
+  }
+
+  public String leMovimento() {
     String command = keyboard.nextLine();
     if(command.isEmpty()) {
       return new String("\n");
@@ -69,14 +76,22 @@ public class Controle {
     }
   }
 
+  public void exibePainel() {
+    System.out.println("Player: " + player);
+    System.out.println("Score: " + score);
+    System.out.println();
+  }
+
   public void iniciaJogo() {
     String key = new String();
 
     heroi.cv.exibe();
+    exibePainel();
     while(!key.equals("q")) {
-      key = leEntrada();
+      key = leMovimento();
       move(key);
       heroi.cv.exibe();
+      exibePainel();
     }
   }
 }

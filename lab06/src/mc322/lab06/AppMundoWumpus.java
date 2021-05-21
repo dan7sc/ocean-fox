@@ -11,6 +11,7 @@ public class AppMundoWumpus {
     mnt.iniciaCaverna(cmd);
 
     ctrl.conectaHeroi(mnt.obtemHeroi());
+    ctrl.leNomeJogador();
     ctrl.iniciaJogo();
   }
 }
