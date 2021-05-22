@@ -81,9 +81,9 @@ public class Montador {
     }
   }
 
-  public Componente obtemHeroi() {
+  public Componente obtemComponente(char tipo) {
     for(int i = 0; i < cmp.length; i++) {
-      if(cmp[i].tipo == 'P') {
+      if(cmp[i].tipo == tipo) {
         return cmp[i];
       }
     }
