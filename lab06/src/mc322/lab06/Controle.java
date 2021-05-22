@@ -63,9 +63,7 @@ public class Controle {
       System.out.println("equipa flecha");
       break;
     case 'c':
-      // if (heroi.cv.pegaOuro()) {
-        System.out.println("captura ouro");
-      // }
+      heroi.capturaOuro();
       break;
     case 'q':
       System.out.println("sai do jogo");

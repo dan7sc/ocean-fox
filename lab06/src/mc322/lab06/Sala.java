@@ -17,7 +17,19 @@ public class Sala {
   }
 
   public void colocaComponente(Componente c) {
-    if(c.tipo == 'P') {
+    if(c.tipo == 'P' && temComponenteTipo('B')) {
+      c.podeMover = false;
+    }
+
+    if(c.tipo == 'P' && temComponenteTipo('W')) {
+      c.podeMover = false;
+    }
+
+    colocaComponente2(c);
+  }
+
+  public void colocaComponente2(Componente c) {
+    if (c.tipo == 'P') {
       visitada = true;
     }
     componentes[nc] = c;
@@ -25,12 +37,27 @@ public class Sala {
   }
 
   public void removeComponente(Componente c) {
+    Componente[] tmp = new Componente[N];
+    int indice = 0;
+
     for (int i = 0; i < N; i++) {
       if(componentes[i] == c) {
-        componentes[i] = null;
         nc -= 1;
+      } else {
+        tmp[indice++] = componentes[i];
       }
     }
+
+    componentes = tmp;
+  }
+
+  public boolean temComponenteTipo(char tipo) {
+    for (int i = 0; i < N; i++) {
+      if (componentes[i] != null && componentes[i].tipo == tipo) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public Componente obtemComponentePorOrdemDePrioridade() {
@@ -48,6 +75,17 @@ public class Sala {
     c = componentes[0];
     for(int i = 1; i < nc; i++) {
       if(c.prioridade > componentes[i].prioridade) {
+        c = componentes[i];
+      }
+    }
+    return c;
+  }
+
+  public Componente obtemComponenteDoTipo(char tipo) {
+    Componente c = null;
+
+    for (int i = 0; i < nc; i++) {
+      if (componentes[i].tipo == tipo) {
         c = componentes[i];
       }
     }
