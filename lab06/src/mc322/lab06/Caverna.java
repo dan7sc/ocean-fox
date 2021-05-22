@@ -54,8 +54,10 @@ public class Caverna {
     salas[c.lin - 1][c.col - 1].removeComponente(c);
   }
 
-  public void removeComponenteDeMaiorPrioridadeDaSala(int lin, int col) {
-    Componente c = this.salas[lin - 1][col - 1].obtemComponentePorOrdemDePrioridade();
-    removeDaSala(c);
+  public void removeDaSalaComponenteDoTipo(int lin, int col, char tipo) {
+    Componente c = this.salas[lin - 1][col - 1].obtemComponenteDoTipo(tipo);
+    if (c != null) {
+      removeDaSala(c);
+    }
   }
 }

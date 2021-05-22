@@ -19,7 +19,7 @@ public class Heroi extends Componente {
   }
 
   public void capturaOuro() {
-    this.cv.removeComponenteDeMaiorPrioridadeDaSala(this.lin, this.col);
+    this.cv.removeDaSalaComponenteDoTipo(this.lin, this.col, 'O');
   }
 
   public void saiDaCaverna() {
