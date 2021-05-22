@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Controle {
   public Scanner keyboard;
-  public Componente heroi;
-  public String player = "";
+  public Heroi heroi;
+  public String player;
   public int score = 0;
 
   public Controle() {
@@ -13,7 +13,7 @@ public class Controle {
   }
 
   public void conectaHeroi(Componente heroi) {
-    this.heroi = heroi;
+    this.heroi = (Heroi) heroi;
   }
 
   public void leNomeJogador() {
@@ -32,28 +32,28 @@ public class Controle {
   public void move(String movimento) {
     switch(movimento.charAt(0)) {
     case 'w':
-      if(heroi.lin - 1 > 0) {
+      if(heroi.podeMover && heroi.lin - 1 > 0) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin - 1, heroi.col);
         heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 's':
-      if(heroi.lin < 4) {
+      if(heroi.podeMover && heroi.lin < 4) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin + 1, heroi.col);
         heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 'd':
-      if(heroi.col < 4) {
+      if(heroi.podeMover && heroi.col < 4) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin, heroi.col + 1);
         heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 'a':
-      if(heroi.col - 1 > 0) {
+      if(heroi.podeMover && heroi.col - 1 > 0) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin, heroi.col - 1);
         heroi.cv.colocaNaSala(heroi);
