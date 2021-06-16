@@ -11,7 +11,7 @@ Os adversários são compostos de dois navios piratas que lançam bombas um cont
 O jogo será finalizado caso o ator principal fique com um nível de energia muito baixo ou se a captura for realizada.
 ## Equipe
 * Ana Luiza Malatesta de Pieri - 193199
-* Daniel Salgado - <RA>
+* Daniel Salgado Costa - <RA>
   
 ## Vídeo do Projeto
   
