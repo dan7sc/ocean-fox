@@ -24,9 +24,8 @@ O jogo será finalizado caso o ator principal fique com um nível de energia mui
 ## Documentação dos Componentes
 ## Diagramas  
 ### Diagrama Geral  
-<Apresente um diagrama geral de organização da organização do seu sistema. O formato é livre. A escolha de um ou mais estilos arquiteturais será considerado um diferencial.>
+[imagem](https://docs.google.com/presentation/d/1jEmcjWWWtM5D-awFN7nWn23QsqWs9HS2jZpnAJ8xyXk/edit#slide=id.gddce5a0f9d_0_14)
 
-<Faça uma breve descrição do diagrama.>
   
 ## Diagrama Geral de Componentes  
 ### Componente  
@@ -38,7 +37,7 @@ Ficha Técnica
 ## Interfaces  
 Interfaces associadas a esse componente:  
   
-Interface agregadora do componente em Java:
+Interface agregadora do componente em Java: EXEMPLO
 ```java
 public interface IDataSet extends ITableProducer, IDataSetProperties {
 }
@@ -50,6 +49,8 @@ Interface <nome da interface>
 <Resumo do papel da interface.>
   
 ## Plano de Exceções  
+[link](https://app.luminpdf.com/viewer/60cab6004b0d7000119dec9c)  
+  
 <Elabore um diagrama com a hierarquia de exceções como detalhado abaixo>  
   
 ### Descrição das classes de exceção
