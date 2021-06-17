@@ -2,7 +2,7 @@ package mc322.lab06;
 
 public class Buraco extends Componente {
   public Buraco(int lin, int col) {
-    super(lin, col, 'B');
+    super(lin, col, 'B', 1, false);
   }
 
   public void criaBrisa() {

@@ -2,7 +2,7 @@ package mc322.lab06;
 
 public class Wumpus extends Componente {
   public Wumpus(int lin, int col) {
-    super(lin, col, 'W');
+    super(lin, col, 'W', 1, false);
   }
 
   public void geraFedor() {

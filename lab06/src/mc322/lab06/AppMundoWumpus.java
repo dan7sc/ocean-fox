@@ -10,7 +10,8 @@ public class AppMundoWumpus {
     cmd = mnt.leArquivo(arq);
     mnt.iniciaCaverna(cmd);
 
-    ctrl.conectaHeroi(mnt.obtemHeroi());
+    ctrl.conectaHeroi(mnt.obtemComponente('P'));
+    ctrl.leNomeJogador();
     ctrl.iniciaJogo();
   }
 }

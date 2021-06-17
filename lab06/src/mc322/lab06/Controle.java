@@ -4,19 +4,25 @@ import java.util.Scanner;
 
 public class Controle {
   public Scanner keyboard;
-  public Componente heroi;
+  public Heroi heroi;
+  public String player;
+  public int score = 0;
 
   public Controle() {
     keyboard = new Scanner(System.in);
   }
 
   public void conectaHeroi(Componente heroi) {
-    this.heroi = heroi;
+    this.heroi = (Heroi) heroi;
   }
 
-  public String leEntrada() {
+  public void leNomeJogador() {
+    System.out.println("Digite o nome do jogador: ");
+    player = keyboard.nextLine();
+  }
+
+  public String leMovimento() {
     String command = keyboard.nextLine();
-    System.out.println("command: " + command);
     if(command.isEmpty()) {
       return new String("\n");
     }
@@ -24,35 +30,30 @@ public class Controle {
   }
 
   public void move(String movimento) {
-    System.out.println("mov: " + movimento.charAt(0));
     switch(movimento.charAt(0)) {
     case 'w':
-      if(heroi.lin - 1 > 0) {
-        System.out.println("para cima");
+      if(heroi.podeMover && heroi.lin - 1 > 0) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin - 1, heroi.col);
         heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 's':
-      if(heroi.lin < 4) {
-        System.out.println("para baixo");
+      if(heroi.podeMover && heroi.lin < 4) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin + 1, heroi.col);
         heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 'd':
-      if(heroi.col < 4) {
-        System.out.println("para direita");
+      if(heroi.podeMover && heroi.col < 4) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin, heroi.col + 1);
         heroi.cv.colocaNaSala(heroi);
       }
       break;
     case 'a':
-      if(heroi.col - 1 > 0) {
-        System.out.println("para esquerda");
+      if(heroi.podeMover && heroi.col - 1 > 0) {
         heroi.cv.removeDaSala(heroi);
         heroi.move(heroi.lin, heroi.col - 1);
         heroi.cv.colocaNaSala(heroi);
@@ -60,11 +61,10 @@ public class Controle {
       break;
     case 'k':
       System.out.println("equipa flecha");
+      heroi.equipaFlecha();
       break;
     case 'c':
-      // if (heroi.cv.pegaOuro()) {
-        System.out.println("captura ouro");
-      // }
+      heroi.capturaOuro();
       break;
     case 'q':
       System.out.println("sai do jogo");
@@ -75,14 +75,24 @@ public class Controle {
     }
   }
 
+  public void exibePainel() {
+    System.out.println("Player: " + player);
+    System.out.println("Score: " + score);
+    System.out.println("Flecha: " + heroi.flecha);
+    System.out.println("Ouro: " + heroi.ouro);
+    System.out.println();
+  }
+
   public void iniciaJogo() {
     String key = new String();
 
     heroi.cv.exibe();
-    while(!key.equals("q")) {
-      key = leEntrada();
+    exibePainel();
+    while(heroi != null && !key.equals("q")) {
+      key = leMovimento();
       move(key);
       heroi.cv.exibe();
+      exibePainel();
     }
   }
 }

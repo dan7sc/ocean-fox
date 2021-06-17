@@ -16,15 +16,19 @@ public class Caverna {
   }
 
   public String exibe() {
+    Componente c;
     for (int i = 0; i < NLIN; i++) {
       // Imprime numeros das linhas da caverna
       System.out.print(numeracao[i]);
       // Imprime caverna
       for (int j = 0; j < NCOL; j++) {
-        if (salas[i][j].componentes[0] == null && salas[i][j].visitada) {
-          System.out.print(" " + '#');
-        } else if (salas[i][j].componentes[0] != null && salas[i][j].visitada) {
-          System.out.print(" " + salas[i][j].componentes[0].tipo);
+        if (salas[i][j].visitada == true) {
+          c = salas[i][j].obtemComponentePorOrdemDePrioridade();
+          if (c == null) {
+            System.out.print(" " + '#');
+          } else {
+            System.out.print(" " + c.tipo);
+          }
         } else {
           System.out.print(" " + '-');
         }
@@ -48,5 +52,14 @@ public class Caverna {
 
   public void removeDaSala(Componente c) {
     salas[c.lin - 1][c.col - 1].removeComponente(c);
+  }
+
+  public boolean removeDaSalaComponenteDoTipo(int lin, int col, char tipo) {
+    Componente c = this.salas[lin - 1][col - 1].obtemComponenteDoTipo(tipo);
+    if (c != null) {
+      removeDaSala(c);
+      return true;
+    }
+    return false;
   }
 }
