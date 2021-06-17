@@ -11,7 +11,7 @@ Os adversários são compostos de dois navios piratas que lançam bombas um cont
 O jogo será finalizado caso o ator principal fique com um nível de energia muito baixo ou se a captura for realizada.
 ## Equipe
 * Ana Luiza Malatesta de Pieri - 193199
-* Daniel Salgado Costa - <RA>
+* Daniel Salgado Costa - 042779
   
 ## Vídeo do Projeto
   
@@ -25,7 +25,11 @@ O jogo será finalizado caso o ator principal fique com um nível de energia mui
 ## Diagramas  
 ### Diagrama Geral  
 [imagem](https://docs.google.com/presentation/d/1jEmcjWWWtM5D-awFN7nWn23QsqWs9HS2jZpnAJ8xyXk/edit#slide=id.gddce5a0f9d_0_14)
-
+<br/><br/>
+![imagem](assets/presentation_model/projeto_final_arquitetura_v1.png)
+<br/><br/>
+No diagrama acima, podemos ver a arquitetura usado no projeto, Model-View-Controller (MVC),
+ e como os componentes se comunicam entre si, além de qual parte da arquitetura os componentes pertencem.
   
 ## Diagrama Geral de Componentes  
 ### Componente  
