@@ -24,14 +24,14 @@ O jogo será finalizado caso o ator principal fique com um nível de energia mui
 ## Documentação dos Componentes
 ## Diagramas  
 ### Diagrama Geral  
-[imagem](https://docs.google.com/presentation/d/1jEmcjWWWtM5D-awFN7nWn23QsqWs9HS2jZpnAJ8xyXk/edit#slide=id.gddce5a0f9d_0_14)
-<br/><br/>
 ![imagem](assets/presentation_model/projeto_final_arquitetura_v1.png)
 <br/><br/>
 No diagrama acima, podemos ver a arquitetura usado no projeto, Model-View-Controller (MVC),
  e como os componentes se comunicam entre si, além de qual parte da arquitetura os componentes pertencem.
   
 ## Diagrama Geral de Componentes  
+![imagem](assets/presentation_model/projeto_final_componentes_v1.png)
+
 ### Componente  
   
 <Resumo do papel do componente e serviços que ele oferece.>
@@ -53,7 +53,7 @@ Interface <nome da interface>
 <Resumo do papel da interface.>
   
 ## Plano de Exceções  
-![link](https://github.com/dan7sc/danaoop/blob/main/MC322%20Final%20Project/assets/exceptionPlan/error.png)  
+![link](assets/exceptionPlan/error.png)
   
 <Elabore um diagrama com a hierarquia de exceções como detalhado abaixo>  
   
