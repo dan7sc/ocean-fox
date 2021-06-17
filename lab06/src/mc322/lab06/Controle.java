@@ -61,6 +61,7 @@ public class Controle {
       break;
     case 'k':
       System.out.println("equipa flecha");
+      heroi.equipaFlecha();
       break;
     case 'c':
       heroi.capturaOuro();
@@ -77,6 +78,8 @@ public class Controle {
   public void exibePainel() {
     System.out.println("Player: " + player);
     System.out.println("Score: " + score);
+    System.out.println("Flecha: " + heroi.flecha);
+    System.out.println("Ouro: " + heroi.ouro);
     System.out.println();
   }
 
@@ -85,7 +88,7 @@ public class Controle {
 
     heroi.cv.exibe();
     exibePainel();
-    while(!key.equals("q")) {
+    while(heroi != null && !key.equals("q")) {
       key = leMovimento();
       move(key);
       heroi.cv.exibe();

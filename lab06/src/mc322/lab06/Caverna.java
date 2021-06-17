@@ -54,10 +54,12 @@ public class Caverna {
     salas[c.lin - 1][c.col - 1].removeComponente(c);
   }
 
-  public void removeDaSalaComponenteDoTipo(int lin, int col, char tipo) {
+  public boolean removeDaSalaComponenteDoTipo(int lin, int col, char tipo) {
     Componente c = this.salas[lin - 1][col - 1].obtemComponenteDoTipo(tipo);
     if (c != null) {
       removeDaSala(c);
+      return true;
     }
+    return false;
   }
 }

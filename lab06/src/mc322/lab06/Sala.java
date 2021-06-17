@@ -17,23 +17,12 @@ public class Sala {
   }
 
   public void colocaComponente(Componente c) {
-    if(c.tipo == 'P' && temComponenteTipo('B')) {
-      c.podeMover = false;
-    }
-
-    if(c.tipo == 'P' && temComponenteTipo('W')) {
-      c.podeMover = false;
-    }
-
-    colocaComponente2(c);
-  }
-
-  public void colocaComponente2(Componente c) {
-    if (c.tipo == 'P') {
-      visitada = true;
-    }
     componentes[nc] = c;
     nc += 1;
+
+    if (c.tipo == 'P') {
+      verificaAcao(c);
+    }
   }
 
   public void removeComponente(Componente c) {
@@ -49,6 +38,34 @@ public class Sala {
     }
 
     componentes = tmp;
+  }
+
+  public void verificaAcao(Componente c) {
+    Heroi h = (Heroi) c;
+
+    if (temComponenteTipo('B')) {
+      h.podeMover = false;
+    }
+
+    if (temComponenteTipo('W')) {
+      if (h.estaArmado) {
+        if (h.disparaFlecha()) {
+          removeComponente(obtemComponenteDoTipo('W'));
+        } else {
+          h.podeMover = false;
+        }
+      } else {
+        h.podeMover = false;
+      }
+    }
+
+    if (h.estaArmado) {
+      h.disparaFlecha();
+    }
+
+    if (h.tipo == 'P') {
+      visitada = true;
+    }
   }
 
   public boolean temComponenteTipo(char tipo) {
