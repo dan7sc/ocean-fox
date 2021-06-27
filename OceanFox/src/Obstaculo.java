@@ -1,18 +1,18 @@
-//obstaculo está implementando o Cano do FlappyBird
+
 public class Obstaculo {
 	public double x,y;
 	public double vxrock;
-	public static int HOLESIZE = 120;
-	public Hitbox boxcima;
-	public Hitbox boxbaixo;
+
+	public NavioPirata boxcima;
+	public NavioPirata boxbaixo;
 	
 	public Obstaculo(double x, double y, double vx){
 		this.x = x;
 		this.y = y;
 		this.vxrock = vx;
 		
-		boxcima = new Hitbox(x,y-270,x+52,y);
-		boxbaixo = new Hitbox(x, y+Obstaculo.HOLESIZE, x+52, y+Obstaculo.HOLESIZE+242);
+		boxcima = new NavioPirata(x,y-270,x+52,y);
+		boxbaixo = new NavioPirata(x, y+200, x+52, y+120+242);
 	}
 	
 	public void atualiza(double dt){
@@ -22,8 +22,9 @@ public class Obstaculo {
 	}
 	
 	public void desenha(Tela t){
-		t.imagem("ocean.png", 400, 10, 80, 80, 0, x, y-270); //cano de cima
-		t.imagem("ocean.png", 400, 10, 80, 80, 0, x, y+Obstaculo.HOLESIZE); //cano de baixo
+		t.imagem("ocean.png", 635, 210, 70,45, 0, x, y-270); //cano de cima
+		t.imagem("ocean.png", 635, 210, 70,45, 0, x, y+120); //cano de baixo
+	
 	}
 	
 }

@@ -13,17 +13,12 @@ import javax.swing.JPanel;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.AudioSystem;
-import java.io.File;
+
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Canvas;
 
-/**
- * Motor do jogo, gerencia a parte gráfica e os eventos
- */
 public class Controller
 {
     public Jogo jogo;
@@ -105,44 +100,11 @@ public class Controller
             return String.valueOf(evt.getKeyChar()).toLowerCase();
         } else {
             switch(evt.getKeyCode()) {
-            case KeyEvent.VK_ALT: return "alt";
-            case KeyEvent.VK_CONTROL: return "control";
-            case KeyEvent.VK_SHIFT: return "shift";
-            case KeyEvent.VK_LEFT: return "left";
-            case KeyEvent.VK_RIGHT: return "right";
-            case KeyEvent.VK_UP: return "up";
-            case KeyEvent.VK_DOWN: return "down";
-            case KeyEvent.VK_ENTER: return "enter";
-            case KeyEvent.VK_DELETE: return "delete";
-            case KeyEvent.VK_TAB: return "tab";
-            case KeyEvent.VK_WINDOWS: return "windows";
-            case KeyEvent.VK_BACK_SPACE: return "backspace";
-            case KeyEvent.VK_ALT_GRAPH: return "altgr";
-            case KeyEvent.VK_F1: return "F1";
-            case KeyEvent.VK_F2: return "F2";
-            case KeyEvent.VK_F3: return "F3";
-            case KeyEvent.VK_F4: return "F4";
-            case KeyEvent.VK_F5: return "F5";
-            case KeyEvent.VK_F6: return "F6";
-            case KeyEvent.VK_F7: return "F7";
-            case KeyEvent.VK_F8: return "F8";
-            case KeyEvent.VK_F9: return "F9";
-            case KeyEvent.VK_F10: return "F10";
-            case KeyEvent.VK_F11: return "F11";
-            case KeyEvent.VK_F12: return "F12";
             default: return "";
             }
         }
     }
 
-    public static void tocar(String filename) {
-        try {
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File(filename)));
-            clip.start();
-        } catch(Exception e) {
-        }
-    }
-
+    
 }
 

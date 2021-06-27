@@ -11,7 +11,7 @@ public class Timer {
         this.repete = repete;
     }
 
-    public void tique(double dt) {
+    public void eachFrame(double dt) {
         if(fim) return;
         tempo += dt;
         if(tempo > limite) {

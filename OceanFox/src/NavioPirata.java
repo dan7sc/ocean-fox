@@ -1,5 +1,6 @@
-public class Hitbox {
-    // Posições
+
+public class NavioPirata {
+
     public static int TOPO     = 1;
     public static int ESQUERDO = 2;
     public static int FUNDO    = 4;
@@ -9,7 +10,7 @@ public class Hitbox {
     // inferior direito
     private double x0, y0, x1, y1;
 
-    public Hitbox(double x0, double y0, double x1, double y1) {
+    public NavioPirata(double x0, double y0, double x1, double y1) {
         if(x0 < x1) {
             this.x0 = x0;
             this.x1 = x1;
@@ -50,12 +51,12 @@ public class Hitbox {
         y1 += dy;
     }
     
-    // Esse retângulo colidiu com hb, e onde em hb?
-    public int intersecao(Hitbox hb) {
-        double w = ((x1-x0) + (hb.x1 - hb.x0)) / 2;
-        double h = ((y1-y0) + (hb.y1 - hb.y0)) / 2;
-        double dx = ((x1 + x0) - (hb.x1 + hb.x0)) / 2;
-        double dy = ((y1 + y0) - (hb.y1 + hb.y0)) / 2;
+
+    public int colisaoBomba(NavioPirata bomba) {
+        double w = ((x1-x0) + (bomba.x1 - bomba.x0)) / 2;
+        double h = ((y1-y0) + (bomba.y1 - bomba.y0)) / 2;
+        double dx = ((x1 + x0) - (bomba.x1 + bomba.x0)) / 2;
+        double dy = ((y1 + y0) - (bomba.y1 + bomba.y0)) / 2;
         if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
             double wy = w * dy; double hx = h * dx;
             if (wy > hx) {
@@ -68,5 +69,6 @@ public class Hitbox {
         }
         return 0;
     }
-
+    
+  
 }
