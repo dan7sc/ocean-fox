@@ -7,6 +7,7 @@ public class OceanFox implements Jogo {
 	public Navio navio;
 	public Baleia baleia;
 	public Arpao arpao;
+	public WinLoseGame winlosegame;
 	
 	public ArrayList<Obstaculo> obstaculos = new ArrayList<Obstaculo>();
 	public Random random = new Random();
@@ -14,6 +15,7 @@ public class OceanFox implements Jogo {
 	
 	public OceanFox(){
 		 navio = new Navio(150,(getLargura()-100)/2 + 50/2); 
+		 winlosegame = new WinLoseGame(150,150); 
 		 baleia = new Baleia(getLargura()/2,getAltura()/2);
 		 arpao = new Arpao(150,(getLargura()-100)/2 + 50/2);
 		 timer_bomba = new Timer(3, true, addBomba());
@@ -79,8 +81,9 @@ public class OceanFox implements Jogo {
     	baleia.atualiza(dt);
     	arpao.atualiza(dt);
     	if(navio.y>=getAltura()){
-    		System.out.println("FIM - LIMITE TELA");
-    	} else if(navio.y <= 0){
+    	    System.out.println("FIM - LIMITE TELA");
+    	    winlosegame.fim();
+     	} else if(navio.y <= 0){
     		System.out.println("FIM - LIMITE TELA");
     	} else if (navio.x==baleia.x) {
     		System.out.println("FIM - CAPTURA");//colocar imagem
@@ -99,11 +102,13 @@ public class OceanFox implements Jogo {
     	//Background
     	t.imagem("ocean.png", 0, 0, 500, 800, 0,  0 ,0 );
     	t.imagem("ocean.png", 0, 0, 500, 800, 0,330 ,0 );
-       	    	
+     	
+    	
     	for(Obstaculo obstaculo: obstaculos){
     		obstaculo.desenha(t);
     	}
-       	
+    
+        	
     	navio.desenhar(t);
     	baleia.desenhar(t);
     	arpao.desenhar(t);

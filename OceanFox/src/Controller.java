@@ -24,6 +24,7 @@ public class Controller
     public Jogo jogo;
     public BufferStrategy strategy;
     public TreeSet<String> keySet = new TreeSet<String>();
+   
     
     public Controller(Jogo j) {
         jogo = j;
@@ -71,8 +72,10 @@ public class Controller
     }
     
     private void mainLoop() {
+    	
         Timer t = new Timer(5, new ActionListener() {
             public long t0;
+          
             public void actionPerformed(ActionEvent evt) {
                 long t1 = System.currentTimeMillis();
                 if(t0 == 0)
