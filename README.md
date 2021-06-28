@@ -19,7 +19,7 @@ O jogo será finalizado caso o ator principal fique com um nível de energia mui
  [Clique aqui para ver o vídeo do projeto](https://youtu.be/7jJkn952Nt8)
  
 ### Vídeo do Jogo
-[link]()
+[link](https://github.com/dan7sc/ocean-fox/blob/main/assets/Ocean-Fox%202021-06-27%2022-41-14.mp4)
  
 ## Slides do Projeto   
     
