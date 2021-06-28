@@ -17,6 +17,10 @@ O jogo será finalizado caso o ator principal fique com um nível de energia mui
   
 ### Vídeo introdutório   
  [Clique aqui para ver o vídeo do projeto](https://youtu.be/7jJkn952Nt8)
+ 
+### Vídeo do Jogo
+[link]()
+ 
 ## Slides do Projeto   
     
 [Clique aqui para ver os slides do projeto](https://drive.google.com/file/d/1-5Xo7iMOnYNXLV7RXgFsevA7Z0z8p5Qr/view?usp=sharing)
