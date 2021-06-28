@@ -13,23 +13,22 @@ public class Baleia {
 	}
 		
 	public void atualiza(double dt){ //atualiza conforme a variação de tempo
-		vy += dt;
-		vx += dt;
+		//vy += dt;
+		//vx += dt;
+		//y += vy*dt;
+		//x += vx*dt;
+		//vy += dt;
+		//vx += dt;
 		y = vy;
 		x = vx;
 	}
 	
 	public void y(){
-		vy = random.nextInt(100)-100;
-		vx = random.nextInt(100)-100;
+		vy = random.nextInt(500)-50;
+		vx = random.nextInt(500)-50;
 	}
 	
 	
-	public void stop(){
-		vy = 0;
-		vx = 0;
-	}
-		
 	
 	public void desenhar(Tela t){
 		t.imagem("ocean.png", 625, 140, 75,45, 0, x, y);

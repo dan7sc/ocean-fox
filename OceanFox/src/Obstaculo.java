@@ -1,24 +1,24 @@
 
 public class Obstaculo {
 	public double x,y;
-	public double vxrock;
+	public double vxbomba;
 
-	public NavioPirata boxcima;
-	public NavioPirata boxbaixo;
+	public NavioPirata superior;
+	public NavioPirata inferior;
 	
 	public Obstaculo(double x, double y, double vx){
 		this.x = x;
 		this.y = y;
-		this.vxrock = vx;
+		this.vxbomba = vx;
 		
-		boxcima = new NavioPirata(x,y-270,x+52,y);
-		boxbaixo = new NavioPirata(x, y+200, x+52, y+120+242);
+		superior = new NavioPirata(x,y-270,x+52,y);
+		inferior = new NavioPirata(x, y+200, x+52, y+362);
 	}
 	
 	public void atualiza(double dt){
-		x += vxrock*dt;
-		boxcima.mover(vxrock*dt, 0);
-		boxbaixo.mover(vxrock*dt, 0);
+		x += vxbomba*dt;
+		superior.mover(vxbomba*dt, 0);
+		inferior.mover(vxbomba*dt, 0);
 	}
 	
 	public void desenha(Tela t){

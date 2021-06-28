@@ -64,11 +64,11 @@ public class OceanFox implements Jogo {
     	else if(tecla.equals(" ")){
     		navio.stop();
     		arpao.stop();
-    		baleia.stop();
+    		baleia.y();
     	}
     	else if(tecla.equals("t")){
     		arpao.ataque();
-    		baleia.stop();
+    		baleia.y();
     		navio.stop();
     	}
     }
@@ -90,7 +90,7 @@ public class OceanFox implements Jogo {
     	}
     	for(Obstaculo obstaculo: obstaculos){
     		obstaculo.atualiza(dt);
-    		if(navio.bomba.colisaoBomba(obstaculo.boxcima)!=0 || navio.bomba.colisaoBomba(obstaculo.boxbaixo)!=0){
+    		if(navio.bomba.colisaoBomba(obstaculo.superior)!=0 || navio.bomba.colisaoBomba(obstaculo.inferior)!=0){
     			System.out.println("FIM - COLISÃO");
     		}
     		
