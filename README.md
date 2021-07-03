@@ -6,9 +6,13 @@ Neste projeto realizaremos a implementação de um jojgo em linguagem Java. O Oc
 como principal objetivo realizar a captura do alvo (baleia).
 O jogador, através de interação via teclado, utilizando as teclas 'w','a','s','d' e espaço para paralização, realiza o deslocamento do Navio Caçador de forma a percorrer o cenário sem esbarrar nos obstáculos ou ser atingido por um adversário.
 
+![imagem](https://github.com/dan7sc/ocean-fox/blob/master/assets/TelaInicial.png)
+
 Os adversários são compostos de dois navios piratas que lançam bombas um contra o outro, podendo atingir o Navio Caçador.
 
-O jogo será finalizado caso o ator principal fique com um nível de energia muito baixo ou se a captura for realizada.
+O jogo será finalizado caso o ator principal consiga realizar a captura.
+Futuramente, pretende-se implementar novas funcionalidades de modo que o ator consiga capturar tantas balaeias quanto for capaz em um período determinado de tempo.
+
 ## Equipe
 * Ana Luiza Malatesta de Pieri - 193199
 * Daniel Salgado Costa - 042779
