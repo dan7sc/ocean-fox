@@ -1,4 +1,7 @@
 //Este código foi criado a partir do estudo de vídeo tutoriais disponíveis no youtube para a implementação de jogos em java
+
+
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -22,52 +25,55 @@ import java.awt.Canvas;
 public class Controller
 {
     public Jogo jogo;
-    public BufferStrategy strategy;
-    public TreeSet<String> keySet = new TreeSet<String>();
+    public BufferStrategy buffer;
+    public TreeSet<String> string = new TreeSet<String>();
    
     
     public Controller(Jogo j) {
         jogo = j;
-        Canvas canvas = new Canvas();
-        JFrame container = new JFrame(jogo.getTitulo());
-        JPanel panel = (JPanel) container.getContentPane();
-        panel.setPreferredSize(new Dimension(
+        Canvas tela = new Canvas();
+        JFrame limite = new JFrame(jogo.getTitulo());
+        JPanel layout = (JPanel) limite.getContentPane();
+        
+        
+        layout.setPreferredSize(new Dimension(
                 jogo.getLargura(), jogo.getAltura()));
-        panel.setLayout(null);
+        layout.setLayout(null);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         Rectangle bounds = gs[gs.length-1].getDefaultConfiguration().getBounds();
-        container.setResizable(false);
-        container.setBounds(bounds.x+(bounds.width - jogo.getLargura())/2,
+        limite.setResizable(false);
+        limite.setBounds(bounds.x+(bounds.width - jogo.getLargura())/2,
                             bounds.y+(bounds.height - jogo.getAltura())/2,
                             jogo.getLargura(),jogo.getAltura());
-        canvas.setBounds(0,0,jogo.getLargura(),jogo.getAltura());
-        panel.add(canvas);        
-        canvas.setIgnoreRepaint(true);
-        container.pack();
-        container.setVisible(true);
-        container.addWindowListener(new WindowAdapter() {
+        tela.setBounds(0,0,jogo.getLargura(),jogo.getAltura());
+        layout.add(tela);        
+        tela.setIgnoreRepaint(true);
+        limite.pack();
+        limite.setVisible(true);
+        limite.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
-        canvas.addKeyListener(new KeyListener() {
+        tela.addKeyListener(new KeyListener() {
             @Override
-            public void keyPressed(KeyEvent evt) {
-                keySet.add(keyString(evt));
+            public void keyPressed(KeyEvent comando) {
+                string.add(keyString(comando));
             }
             @Override
-            public void keyReleased(KeyEvent evt) {
-                keySet.remove(keyString(evt));
+            public void keyReleased(KeyEvent comando) {
+                string.remove(keyString(comando));
             }
             @Override
-            public void keyTyped(KeyEvent evt) {
-                jogo.tecla(keyString(evt));
+            public void keyTyped(KeyEvent comando) {
+                jogo.tecla(keyString(comando));
             }
         });
-        canvas.createBufferStrategy(2);
-        strategy = canvas.getBufferStrategy();
-        canvas.requestFocus();
+        
+        tela.createBufferStrategy(2);
+        buffer = tela.getBufferStrategy();
+        tela.requestFocus();
         mainLoop();
     }
     
@@ -76,20 +82,20 @@ public class Controller
         Timer t = new Timer(5, new ActionListener() {
             public long t0;
           
-            public void actionPerformed(ActionEvent evt) {
+            public void actionPerformed(ActionEvent comando) {
                 long t1 = System.currentTimeMillis();
                 if(t0 == 0)
                     t0 = t1;
                 if(t1 > t0) {
                     double dt = (t1 - t0) / 1000.0;
                     t0 = t1;
-                    jogo.tique(keySet, dt);     
-                    Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
+                    jogo.tique(string, dt);     
+                    Graphics2D g = (Graphics2D)buffer.getDrawGraphics();
                     g.setColor(Color.black);
                     g.fillRect(0,0,jogo.getLargura(),
                           jogo.getAltura());
                     jogo.desenhar(new Tela(g));
-                    strategy.show();
+                    buffer.show();
                 }
             }
         });
@@ -98,11 +104,11 @@ public class Controller
     }
 
     
-    private static String keyString(KeyEvent evt) {
-        if(evt.getKeyChar() != KeyEvent.CHAR_UNDEFINED) {
-            return String.valueOf(evt.getKeyChar()).toLowerCase();
+    private static String keyString(KeyEvent comando) {
+        if(comando.getKeyChar() != KeyEvent.CHAR_UNDEFINED) {
+            return String.valueOf(comando.getKeyChar()).toLowerCase();
         } else {
-            switch(evt.getKeyCode()) {
+            switch(comando.getKeyCode()) {
             default: return "";
             }
         }
