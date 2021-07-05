@@ -63,9 +63,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.Arpao 
+Classe | src.Arpao 
 Autores | Ana, Daniel
-Interfaces | GridItem, IBuildGridItem, IGridItemVisual, IAction
+Interfaces (Plano conceitual) | GridItem, IBuildGridItem, IGridItemVisual, IAction
 
 #### Baleia
 É o objeto a ser caçado no jogo. Contruído de forma a ser posicionado a partir de comandos aleatórios que são gerados com o movimento do navio. Cada tecla pressionada pelo jogador gera um novo posicionamento para a baleia.
@@ -83,9 +83,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.Baleia
+Classe | src.Baleia
 Autores | Ana, Daniel
-Interfaces | GridItem, IBuildGridItem, IGridItemVisual
+Interfaces (Plano conceitual) | GridItem, IBuildGridItem, IGridItemVisual
 
 #### NavioPirata
 Componente responsável por definir os limites de posicionamento entre navio e bomba. Realiza o cálculo da sobreposição, fazendo com que o jogo termine caso exista uma colisão, ou seja, sobreposição dos atores no mesmo espaço e tempo.
@@ -102,9 +102,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.NavioPirata
+Classe | src.NavioPirata
 Autores | Ana, Daniel
-Interfaces | GridItem, IGridItemVisual, IBuildGridItem
+Interfaces (Plano conceitual) | GridItem, IGridItemVisual, IBuildGridItem
 
 #### Controller
 Componente responsável por realizar o controle da tela e também da entrada do jogo, ou seja, recebe a requisição de posição através do teclado e faz a comunicação com o jogo para que o movimento seja executado. Realiza novas solicitações de impressão para o elemento Tela.
@@ -122,9 +122,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.Controller
+Classe | src.Controller
 Autores | Ana, Daniel
-Interfaces | Control, IControlVisual, ICommand, IVisual
+Interfaces (Plano conceitual) | Control, IControlVisual, ICommand, IVisual
 
 #### Navio
 Componente com o ator principal do jogo. Resposnável por determinar o seu posicionamento a cada atualização temporal e a continua visualização do elemento na tela.
@@ -147,9 +147,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.Navio
+Classe | src.Navio
 Autores | Ana, Daniel
-Interfaces | GridItem, IBuildGridItem, IGridItemVisual, ICommand
+Interfaces (Plano conceitual) | GridItem, IBuildGridItem, IGridItemVisual, ICommand
 
 #### Obstaculo
 Classe responsável pela criação e visualização das bombas que são lançadas peloas navios piratas.
@@ -166,9 +166,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.Obstaculo
+Classe | src.Obstaculo
 Autores | Ana, Daniel
-Interfaces | GridItem, IGridItemVisual, IBuildGridItem
+Interfaces (Plano conceitual) | GridItem, IGridItemVisual, IBuildGridItem
 
 #### OceanFox
 Classe responsável pela implementação do jogo, onde são chamas as criações do navio, baleia, obstáculos e onde existe a leitura do teclado. 
@@ -192,9 +192,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.OceanFox
+Classe | src.OceanFox
 Autores | Ana, Daniel
-Interfaces | Control, IControlVisual, IBuildVisual, IVisual
+Interfaces (Plano conceitual) | Control, IControlVisual, IBuildVisual, IVisual
 
 #### Tela
 Componente responsável pela criação da da interface de visualização do jogo.
@@ -210,9 +210,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.Tela
+Classe | src.Tela
 Autores | Ana, Daniel
-Interfaces | IGridVisual, IVisual
+Interfaces (Plano conceitual) | IGridVisual, IVisual
 
 #### Timer
 Componente responsável pela característica de loop do jogo, de forma a realizar uma atualização temporal a cada Frame.
@@ -228,9 +228,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.Timer
+Classe | src.Timer
 Autores | Ana, Daniel
-Interfaces | Control, IAction
+Interfaces (Plano conceitual) | Control, IAction
 
 #### WinLoseGame
 Componente responsável por extrair e apresentar mensagens de início e fim do jogo.
@@ -248,9 +248,9 @@ Método | Objetivo
 
 item | detalhamento
 ----- | -----
-Classe | OceanFox.src.WinLoseGame
+Classe | src.WinLoseGame
 Autores | Ana, Daniel
-Interfaces | IVisual
+Interfaces (Plano conceitual) | IVisual
 
 ## Interfaces  
 Interfaces associadas a esse componente:  
